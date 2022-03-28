@@ -1,0 +1,33 @@
+<% question ||= nil %>
+<% author_question = question.author %>
+<% action_icon = question.answer.blank? ? 'reply' : 'pencil' %>
+<div class="question">
+  <div class="question-content">
+    <div class="question-text text-lead">
+      <%= url_hashtag(question.text) %>
+    </div>
+
+    <% if question.answer.present? %>
+      <div class="question-answer text-lead">
+        <%= url_hashtag(question.answer) if question.answer.present? %>
+      </div>
+    <% end %>
+
+    <div class="question-date">
+        <%= 'Спросил | ' %>
+      <% if author_question.nil?%>
+        <%= 'Аноним' %>
+      <% else %>
+        <%= link_to "@#{author_question.username}", user_path(author_question) %>
+      <% end %>
+      <%= "(#{l(question.created_at, format: :short)})" %>
+    </div>
+  </div>
+
+  <% if question.user == current_user %>
+    <div class="question-actions">
+      <%= link_to fa_icon(action_icon), edit_question_path(question) %>
+      <%= link_to fa_icon('trash-o'), question_path(question), method: :delete, data: {confirm: 'Удалить вопрос?'}%>
+    </div>
+  <% end %>
+</div>

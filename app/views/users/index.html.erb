@@ -1,0 +1,23 @@
+<div class="content-wrapper buffer-both text-center">
+  <div class="buffer-both">
+    <h1 class="title-medium">Пользователи</h1>
+  </div>
+
+  <% @users.each do |user| %>
+    <div class="users-list-item">
+      <div class="user-image-div user-image-div-small">
+        <%= link_to image_tag(user_avatar(user), class: 'user-image'), user_path(user) %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="buffer-both">
+    <h1 class="title-medium">Хештеги</h1>
+  </div>
+
+  <% @hashtags.each do |hashtag| %>
+    <div class="users-list-item title-small">
+      <%= link_to "##{hashtag.name}", hashtag_path(hashtag.name), class: 'hashtag' %>
+    </div>
+  <% end %>
+</div>
